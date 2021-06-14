@@ -9,7 +9,7 @@ pipeline{
        stage('Git checkout')
        {
             steps{
-                 git 'https://github.com/sreelakshmi665/Trailtera.git'
+                 git branch: 'master', url: 'https://github.com/sreelakshmi665/Trailtera.git'
             }
        }
       stage("validate"){
@@ -22,6 +22,7 @@ pipeline{
               bat 'mvn  -f codingChallenge compile'
           }
       }
+             
       stage("package"){
           steps{
                bat 'mvn -f codingChallenge  -B -DskipTests package '
