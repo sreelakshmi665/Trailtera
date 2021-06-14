@@ -9,7 +9,7 @@ pipeline{
        stage('Git checkout')
        {
             steps{
-                 git 'https://github.com/sravanin15/SpringCricket.git'
+                 git 'https://github.com/sreelakshmi665/Trailtera.git'
             }
        }
       stage("validate"){
