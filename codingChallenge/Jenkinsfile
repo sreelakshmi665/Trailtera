@@ -45,7 +45,7 @@ pipeline{
              
       stage("package"){
           steps{
-               bat 'mvn -f codingChallenge  -B -DskipTests package '
+               bat 'mvn -f codingChallenge  -B -DskipTests package -Dbuild.number=-${BUILD_NUMBER}'
           }
       }
         
