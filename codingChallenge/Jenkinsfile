@@ -54,7 +54,7 @@ pipeline{
       steps{
          script{
           
-              archiveArtifacts artifacts:'codingChallenge/target/*-Dbuild.number.jar',followSymlinks:false
+              archiveArtifacts artifacts:'codingChallenge/target/CodingChallenge-0.0.1-SNAPSHOT-Dbuild.number.jar',followSymlinks:false
           }
       }
     }   
@@ -67,7 +67,7 @@ pipeline{
           spec: '''{
           "files": [
             {
-              "pattern": "codingChallenge/target/*-Dbuild.number.jar",
+              "pattern": "codingChallenge/target/CodingChallenge-0.0.1-SNAPSHOT-Dbuild.number.jar",
               "target": "art-doc-dev-loc"
             }
          ]
