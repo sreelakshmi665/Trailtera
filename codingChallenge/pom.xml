@@ -49,7 +49,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<finalname>${artifactId}-${version}${build.number}</finalname>
+		<finalName>${artifactId}-${version}${build.number}</finalName>
 	</build>
 
 </project>
