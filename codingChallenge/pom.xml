@@ -49,6 +49,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<finalname>${artifactId}-${version}${build.number}</finalname>
 	</build>
 
 </project>
