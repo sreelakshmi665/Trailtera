@@ -22,6 +22,26 @@ pipeline{
               bat 'mvn  -f codingChallenge compile'
           }
       }
+         stage('sonar analysis'){
+            steps{
+                script{
+                
+                withSonarQubeEnv('sonar-server'){
+                    withMaven(maven:'Maven'){
+                        bat 'mvn -f codingChallenge sonar:sonar'
+                    }
+                }
+                }
+            }
+
+        }
+        stage("Quality gate") {
+            steps {
+                script{
+                waitForQualityGate abortPipeline: true
+                }
+            }
+        }
              
       stage("package"){
           steps{
