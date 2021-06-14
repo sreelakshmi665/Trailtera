@@ -14,17 +14,17 @@ pipeline{
        }
       stage("validate"){
           steps{
-              sh 'mvn -f codingChallenge -B -DskipTests clean validate'
+              bat 'mvn -f codingChallenge -B -DskipTests clean validate'
           }
       }
        stage("compile"){
           steps{
-              sh 'mvn  -f codingChallenge compile'
+              bat 'mvn  -f codingChallenge compile'
           }
       }
       stage("package"){
           steps{
-               sh 'mvn -f codingChallenge  -B -DskipTests package '
+               bat 'mvn -f codingChallenge  -B -DskipTests package '
           }
       }
    }
