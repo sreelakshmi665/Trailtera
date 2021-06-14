@@ -48,5 +48,35 @@ pipeline{
                bat 'mvn -f codingChallenge  -B -DskipTests package '
           }
       }
+        
+   stage('Collect-Artifactory')
+    {
+      steps{
+         script{
+          
+        archiveArtifacts artifacts:'codingChallenge/target/*.jar',followSymlinks:false
+          }
+      }
+    }   
+    stage('Deploy-To-Artifactory')
+    {
+      steps{
+         script{
+        rtUpload(
+          serverId:'artifactory-server',
+          spec: '''{
+          "files": [
+            {
+              "pattern": "codingChallenge/target/*.jar",
+              "target": "art-doc-dev-loc"
+            }
+         ]
+    }''',
+          
+)
+          }
+  }
+}   
+            
    }
 }
