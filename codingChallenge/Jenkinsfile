@@ -103,7 +103,7 @@ pipeline{
           spec: '''{
           "files": [
             {
-              "pattern": "art-doc-dev-loc/CodingChallenge-0.0.1-SNAPSHOT-19.jar",
+              "pattern": "art-doc-dev-loc/*.jar",
               "target": "C:/Users/vscr9/.m2/repository"
             }
          ]
