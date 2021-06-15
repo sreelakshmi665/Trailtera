@@ -83,7 +83,7 @@ pipeline{
           "files": [
             {
               "pattern": "codingChallenge/target/*.jar",
-              "target": "art-doc-dev-loc"
+              "target": "art-doc-dev-loc/sample/"
             }
          ]
     }''',
@@ -103,7 +103,7 @@ pipeline{
           spec: '''{
           "files": [
             {
-              "pattern": "art-doc-dev-loc/*.jar",
+              "pattern": "art-doc-dev-loc/sample/",
               "target": "C:/Users/vscr9/.m2/repository"
              
             }
