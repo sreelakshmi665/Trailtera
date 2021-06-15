@@ -9,7 +9,7 @@ pipeline{
        stage('Git checkout')
        {
             steps{
-                 FAILED_STAGE=env.STAGE_NAME
+                 FAILED_STAGE= env.STAGE_NAME
                  git branch: 'master', url: 'https://github.com/sreelakshmi665/Trailtera.git'
             }
        }
