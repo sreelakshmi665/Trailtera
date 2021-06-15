@@ -9,23 +9,26 @@ pipeline{
        stage('Git checkout')
        {
             steps{
+                 FAILED_STAGE=env.STAGE_NAME
                  git branch: 'master', url: 'https://github.com/sreelakshmi665/Trailtera.git'
             }
        }
       stage("validate"){
           steps{
+               FAILED_STAGE=env.STAGE_NAME
               bat 'mvn -f codingChallenge -B -DskipTests clean validate'
           }
       }
        stage("compile"){
           steps{
+               FAILED_STAGE=env.STAGE_NAME
               bat 'mvn  -f codingChallenge compile'
           }
       }
          stage('sonar analysis'){
             steps{
                 script{
-                
+                FAILED_STAGE=env.STAGE_NAME
                 withSonarQubeEnv('sonar-server'){
                     withMaven(maven:'Maven'){
                         bat 'mvn -f codingChallenge sonar:sonar'
@@ -37,7 +40,7 @@ pipeline{
         }
         stage("Quality gate") {
             steps {
-                script{
+                script{FAILED_STAGE=env.STAGE_NAME
                 waitForQualityGate abortPipeline: true
                 }
             }
@@ -45,6 +48,7 @@ pipeline{
              
       stage("package"){
           steps{
+               FAILED_STAGE=env.STAGE_NAME
                bat 'mvn -f codingChallenge  -B -DskipTests package -Dbuild.number=-${BUILD_NUMBER}'
           }
       }
@@ -53,7 +57,7 @@ pipeline{
     {
       steps{
          script{
-          
+          FAILED_STAGE=env.STAGE_NAME
               archiveArtifacts artifacts:'codingChallenge/target/*.jar',followSymlinks:false
           }
       }
@@ -61,6 +65,7 @@ pipeline{
     stage('Deploy-To-Artifactory')
     {
       steps{
+           FAILED_STAGE=env.STAGE_NAME
          script{
         rtUpload(
           serverId:'artifactory-server',
@@ -79,4 +84,22 @@ pipeline{
 }   
             
    }
+     post {  
+         always {  
+             echo 'This will always run'  
+         }  
+         success {  
+             echo 'This will run only if successful'  
+         }  
+         failure {  
+             mail bcc: '', body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br>Build Stage: ${FAILED_STAGE} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: 'sravaninuthanapati15@gmail.com', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: "sreelakshmilucky14@gmail.com";  
+         }  
+         unstable {  
+             echo 'This will run only if  the run was marked as unstable'  
+         }  
+         changed {  
+             echo 'This will run only if the state of the Pipeline has changed'  
+             echo 'For example, if the Pipeline was previously failing but is now successful'  
+         }  
+     }      
 }
