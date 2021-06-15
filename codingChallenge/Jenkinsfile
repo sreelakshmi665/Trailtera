@@ -103,10 +103,9 @@ pipeline{
           spec: '''{
           "files": [
             {
-              "pattern": "art-doc-dev-loc/",
+              "pattern": "art-doc-dev-loc/*.jar",
               "target": "C:/Users/vscr9/.m2/repository"
-              "buildName": "${env.JOB_NAME}",
-              "buildNumber": "${env.BUILD_NUMBER}"
+             
             }
          ]
     }''',
