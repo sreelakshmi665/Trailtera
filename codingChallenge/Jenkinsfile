@@ -9,20 +9,26 @@ pipeline{
        stage('Git checkout')
        {
             steps{
+                 script{
                  FAILED_STAGE= env.STAGE_NAME
                  git branch: 'master', url: 'https://github.com/sreelakshmi665/Trailtera.git'
+                 }
             }
        }
       stage("validate"){
           steps{
+               script{
                FAILED_STAGE=env.STAGE_NAME
               bat 'mvn -f codingChallenge -B -DskipTests clean validate'
+               }
           }
       }
        stage("compile"){
           steps{
+               script{
                FAILED_STAGE=env.STAGE_NAME
               bat 'mvn  -f codingChallenge compile'
+               }
           }
       }
          stage('sonar analysis'){
@@ -40,7 +46,8 @@ pipeline{
         }
         stage("Quality gate") {
             steps {
-                script{FAILED_STAGE=env.STAGE_NAME
+                script{
+                     FAILED_STAGE=env.STAGE_NAME
                 waitForQualityGate abortPipeline: true
                 }
             }
@@ -48,8 +55,10 @@ pipeline{
              
       stage("package"){
           steps{
+               script{
                FAILED_STAGE=env.STAGE_NAME
                bat 'mvn -f codingChallenge  -B -DskipTests package -Dbuild.number=-${BUILD_NUMBER}'
+               }
           }
       }
         
@@ -65,8 +74,9 @@ pipeline{
     stage('Deploy-To-Artifactory')
     {
       steps{
-           FAILED_STAGE=env.STAGE_NAME
+           
          script{
+              FAILED_STAGE=env.STAGE_NAME
         rtUpload(
           serverId:'artifactory-server',
           spec: '''{
