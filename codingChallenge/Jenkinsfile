@@ -103,8 +103,10 @@ pipeline{
           spec: '''{
           "files": [
             {
-              "pattern": "art-doc-dev-loc/*.jar",
+              "pattern": "art-doc-dev-loc/",
               "target": "C:/Users/vscr9/.m2/repository"
+              "buildName": "${env.JOB_NAME}",
+              "buildNumber": "${env.BUILD_NUMBER}"
             }
          ]
     }''',
@@ -142,7 +144,7 @@ pipeline{
              echo 'This will run only if successful'  
          }  
          failure {  
-             mail bcc: '', body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br>Build Stage: ${FAILED_STAGE} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: 'sravaninuthanapati15@gmail.com', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: "sreelakshmilucky14@gmail.com";  
+             mail bcc: '', body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br>Build Stage: ${FAILED_STAGE} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: 'sreelakshmilucky14@gmail.com', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: "sreelakshmilucky14@gmail.com";  
          }  
          unstable {  
              echo 'This will run only if  the run was marked as unstable'  
