@@ -123,11 +123,11 @@ pipeline{
                             FAILED_STAGE=env.STAGE_NAME
                              withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'b44589a1-cd4f-4f70-baa2-833d7b07e042', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                                   bat "terraform init"
-                                  bat "terraform plan -out myplan"
+                                  bat "terraform plan "
                                   def userInput = input(id: 'confirm', message: 'Apply Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply terraform', name: 'confirm'] ])
-                                  container('terraform') {
-          bat "terraform apply -input=false myplan"
-        }
+                                  
+          bat "terraform apply -input=false"
+     
                              }
                        }
                   }
