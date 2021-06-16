@@ -15,7 +15,7 @@ pipeline{
                  }
             }
        }
-      stage("validate"){
+      stage("validate") {
           steps{
                script{
                FAILED_STAGE=env.STAGE_NAME
